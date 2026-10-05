@@ -1,0 +1,537 @@
+<title>Inventions Mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+/* Layout: one mark. A poteto is 2,000 cells (100x20 wide, 50x40 on phones), one per PR. The grid is the reference; lit cells are the subject. Contribution green = you. */
+:root {
+  --ground: #ffffff;
+  --bar: #f6f8fa;
+  --line: rgba(31, 35, 40, .15);
+  --chalk: #1f2328;
+  --text: #3d444d;
+  --muted: #59636e;
+  --c0: #ebedf0;
+  --you: #2da44e;
+  --g0: #ebedf0; --g1: #9be9a8; --g2: #40c463; --g3: #30a14e; --g4: #216e39;
+  --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  --gap: 64px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --ground: #0d1117; --bar: #010409; --line: rgba(240, 246, 252, .14); --chalk: #e6edf3; --text: #c9d1d9; --muted: #9198a1; --c0: #1c232c; --you: #39d353; --g0: #151b23; --g1: #0e4429; --g2: #006d32; --g3: #26a641; --g4: #39d353; color-scheme: dark; }
+}
+:root[data-theme="dark"] { --ground: #0d1117; --bar: #010409; --line: rgba(240, 246, 252, .14); --chalk: #e6edf3; --text: #c9d1d9; --muted: #9198a1; --c0: #1c232c; --you: #39d353; --g0: #151b23; --g1: #0e4429; --g2: #006d32; --g3: #26a641; --g4: #39d353; color-scheme: dark; }
+* { box-sizing: border-box; }
+html { background: var(--ground); }
+body { background: var(--ground); color: var(--chalk); font: 400 14px/1.6 var(--mono); padding-inline: 16px; padding-block: 0 80px; margin: 0; }
+.wrap { max-width: 1120px; margin-inline: auto; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--chalk); outline-offset: 3px; }
+
+.mockbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; margin-inline: -16px; padding: 10px 16px; background: var(--bar); border-bottom: 1px solid var(--line); display: flex; gap: 8px; align-items: center; overflow-x: auto; font: 500 12px/1 var(--mono); }
+.mockbar span { color: var(--muted); white-space: nowrap; }
+.mockbar a { text-decoration: none; white-space: nowrap; padding: 7px 10px; border: 1px solid var(--line); color: var(--muted); }
+.mockbar a[aria-current="true"] { background: var(--chalk); color: var(--ground); border-color: var(--chalk); }
+
+.site-head { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+.mark { font: 900 24px/1 var(--display); letter-spacing: .08em; text-decoration: none; }
+.nav { display: flex; align-items: center; gap: 16px; }
+.gh { display: inline-flex; align-items: center; gap: 8px; font: 500 13px/1 var(--mono); text-decoration: none; color: var(--chalk); }
+.gh:hover span { text-decoration: underline; text-underline-offset: 3px; }
+.lang { display: flex; font: 500 12px/1 var(--mono); }
+.lang button { font: inherit; letter-spacing: .08em; padding: 7px 10px; cursor: pointer; background: var(--ground); color: var(--muted); border: 1px solid var(--line); }
+.lang button + button { border-left: 0; }
+.lang button[aria-pressed="true"] { color: var(--ground); background: var(--chalk); border-color: var(--chalk); }
+
+h1, .h1 { margin: 0; font: 800 clamp(40px, 7vw, 76px)/.95 var(--display); text-transform: uppercase; text-wrap: balance; }
+h2 { margin: 0; font: 800 clamp(30px, 5vw, 48px)/.95 var(--display); text-transform: uppercase; text-wrap: balance; }
+.meta { font: 400 12px/1.5 var(--mono); color: var(--muted); }
+.label { font: 500 14px/1.4 var(--mono); color: var(--chalk); }
+
+.grid svg { display: block; width: 100%; height: auto; }
+.grid .narrow { display: none; }
+.grid-cap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+/* Landing */
+.hero { display: grid; gap: 32px; padding-top: 32px; }
+#hero { display: block; width: 100%; }
+.source { margin: -16px 0 0; }
+.source a { color: var(--chalk); text-underline-offset: 3px; }
+.measure { display: grid; gap: 14px; padding-top: var(--gap); }
+.measure label { font: 800 26px/1 var(--display); text-transform: uppercase; letter-spacing: .02em; }
+.field { display: flex; flex-wrap: wrap; border: 1px solid var(--chalk); background: var(--ground); }
+.field .prefix { display: flex; align-items: center; font: 400 18px/20px var(--mono); color: var(--muted); padding: 0 0 0 16px; }
+.field input { flex: 1 1 140px; min-width: 0; height: 60px; font: 500 18px/20px var(--mono); color: var(--chalk); background: transparent; border: 0; padding: 0 16px 0 2px; outline: none; }
+.field button { flex: 1 0 auto; font: 800 20px/1 var(--display); letter-spacing: .1em; text-transform: uppercase; background: var(--chalk); color: var(--ground); border: 0; padding: 17px 32px; cursor: pointer; }
+.field:focus-within { box-shadow: 0 0 0 1px var(--chalk); }
+
+.board-wrap { padding-top: var(--gap); display: grid; gap: 16px; max-width: 640px; }
+.g { color: var(--g3); }
+.board { list-style: none; margin: 0; padding: 0; }
+.board li { display: grid; grid-template-columns: 160px minmax(0, 1fr) 72px; gap: 16px; align-items: center; padding-block: 10px; border-bottom: 1px solid var(--line); }
+.board b { font: 500 14px/1 var(--mono); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.board svg { display: block; width: 100%; height: auto; }
+.board .num { font: 500 14px/1 var(--mono); text-align: right; font-variant-numeric: tabular-nums; }
+.foot { margin-top: var(--gap); padding-top: 16px; border-top: 1px solid var(--line); display: grid; gap: 4px; }
+
+/* Result */
+.result-head { padding-top: 32px; display: grid; gap: 12px; padding-bottom: 32px; }
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; padding-top: var(--gap); }
+.stats dt { font: 800 52px/1 var(--display); font-variant-numeric: tabular-nums; }
+.stats dt.y { color: var(--you); }
+.stats dd { margin: 8px 0 0; }
+.facts-line { margin: 16px 0 0; color: var(--text); }
+.facts-line b { font-weight: 500; color: var(--chalk); }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding-top: 20px; }
+.btn { font: 800 17px/1 var(--display); letter-spacing: .1em; text-transform: uppercase; text-decoration: none; padding: 12px 18px; border: 1px solid var(--chalk); background: var(--ground); color: var(--chalk); cursor: pointer; }
+.btn.solid { background: var(--chalk); color: var(--ground); }
+.actions .meta { margin-left: 8px; }
+.split { display: grid; grid-template-columns: 624px minmax(0, 1fr); gap: 48px; align-items: start; padding-top: var(--gap); }
+.col { display: grid; gap: 14px; align-content: start; min-width: 0; }
+.pd svg { display: block; width: 100%; height: auto; }
+.sim { list-style: none; margin: 0; padding: 0; }
+.sim li { display: flex; justify-content: space-between; gap: 12px; padding-block: 8px; border-bottom: 1px solid var(--line); }
+.sim li span { color: var(--muted); font-variant-numeric: tabular-nums; }
+.sim li.me b, .sim li.me span { color: var(--you); font-weight: 700; }
+.sim b { font-weight: 500; }
+.share { padding-top: 40px; display: grid; gap: 14px; }
+.og-frame { border: 1px solid var(--line); }
+.og-frame svg { display: block; width: 100%; height: auto; }
+.og-frame .cn { display: none; }
+.punch { padding-top: calc(var(--gap) * 1.5); display: grid; gap: 24px; }
+.punch p { margin: 0; color: var(--text); max-width: 60ch; }
+.punch .joke { margin-top: -12px; }
+.joke a { color: var(--chalk); text-underline-offset: 3px; }
+
+/* Error */
+.error { padding-top: var(--gap); display: grid; gap: 18px; max-width: 640px; }
+.error p { margin: 0; color: var(--text); max-width: 56ch; font-size: 15px; }
+.error code { font-family: var(--mono); color: var(--chalk); }
+.note { border-top: 1px solid var(--line); padding-top: 14px; }
+
+.og-list { display: grid; gap: 40px; padding-top: 32px; }
+.og { display: grid; gap: 8px; }
+
+@media (max-width: 1151px) { .hero h1 { text-align: center; } }
+@media (max-width: 640px) {
+  :root { --gap: 48px; }
+  .grid .wide { display: none; }
+  .gh span { display: none; }
+  .og-frame .cw { display: none; }
+  .og-frame .cn { display: block; }
+  .grid .narrow { display: block; }
+  .stats dt { font-size: 38px; }
+  .stats { gap: 12px; }
+  .split { grid-template-columns: minmax(0, 1fr); gap: var(--gap); }
+  .board li { grid-template-columns: minmax(0, 1fr) 72px; }
+  .board svg { grid-column: 1 / -1; grid-row: 2; }
+  .actions .meta { margin-left: 0; width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="wrap">
+  <nav class="mockbar" aria-label="Mockup views">
+    <span>MOCKUP</span>
+    <a href="#landing">Landing</a>
+    <a href="#behind">Result: behind</a>
+    <a href="#ahead">Result: ahead</a>
+    <a href="#error">Error</a>
+    <a href="#og">OG images</a>
+  </nav>
+
+  <header class="site-head">
+    <a class="mark" href="#landing">INVENTIONS</a>
+    <nav class="nav" aria-label="Site">
+      <a class="gh" href="https://github.com/" target="_blank" rel="noopener" aria-label="Source code on GitHub"><svg viewBox="0 0 16 16" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg><span data-t="ghlabel"></span></a>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="es" aria-pressed="false">ES</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="view" id="v-landing">
+      <div class="hero">
+        <h1 data-t="h1"></h1>
+        <canvas id="hero" aria-hidden="true"></canvas>
+        <p class="meta source" data-t="source" data-html></p>
+      </div>
+      <form class="measure" id="measure">
+        <label for="login" data-t="label"></label>
+        <div class="field">
+          <span class="prefix">github.com/</span>
+          <input id="login" name="login" autocomplete="off" autocapitalize="off" spellcheck="false" value="hjsimpson">
+          <button type="submit" data-t="go"></button>
+        </div>
+        <span class="meta" data-t="hint"></span>
+      </form>
+      <div class="board-wrap">
+        <h2 data-t="board"></h2>
+        <span class="meta" data-t="boardkey" data-html></span>
+        <ol class="board" id="board"></ol>
+      </div>
+      <div class="foot meta">
+        <span data-t="foot1"></span>
+        <span data-t="foot2"></span>
+      </div>
+    </section>
+
+    <section class="view" id="v-behind" hidden></section>
+    <section class="view" id="v-ahead" hidden></section>
+
+    <section class="view" id="v-error" hidden>
+      <div class="error">
+        <span class="meta">@vercel</span>
+        <h1 data-t="errh"></h1>
+        <p data-t="errp" data-html></p>
+        <form class="measure" style="padding:0">
+          <label for="login2" data-t="label"></label>
+          <div class="field">
+            <span class="prefix">github.com/</span>
+            <input id="login2" autocomplete="off" autocapitalize="off" spellcheck="false" value="vercel">
+            <button type="submit" data-t="go"></button>
+          </div>
+        </form>
+        <p class="note" data-t="err2" data-html></p>
+      </div>
+    </section>
+
+    <section class="view" id="v-og" hidden>
+      <div class="og-list" id="og-list"></div>
+    </section>
+  </main>
+</div>
+
+<script>
+(() => {
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const T = {
+    en: {
+      h1: "@poteto shipped 2,000 PRs in 30 days.",
+      source: 'Source: <a href="https://x.com/poteto/status/2087311081433964965" target="_blank" rel="noopener">@poteto\'s post on X ↗</a> · <a href="https://www.youtube.com/watch?v=NjoZoUm85x0" target="_blank" rel="noopener">the talk ↗</a>',
+      label: "How many did you ship?",
+      go: "Measure",
+      hint: "Public repos only. Results update every 12 hours.",
+      board: "Recently measured",
+      boardkey: "<span class=\"g\">■</span> = 100 merged PRs. The gap after 20 cells is one poteto.",
+      foot1: "@poteto's 2,000 is the number from the talk. We do not scan @poteto's account.",
+      foot2: "Fan-made. Not affiliated with GitHub or @poteto.",
+      ghlabel: "GitHub",
+      joke: 'Don\'t get the joke? It\'s from The Simpsons, <a href="https://en.wikipedia.org/wiki/The_Wizard_of_Evergreen_Terrace" target="_blank" rel="noopener">“The Wizard of Evergreen Terrace” (S10E2) ↗</a>.',
+      title: "INVENTIONS", you: "ME",
+      errh: "This account can't race.",
+      errp: "<code>@vercel</code> is an organization. Organizations don't open pull requests. Enter a person's username.",
+      err2: "If the user does not exist, the page says: <b>No GitHub user called <code>@hjsimpsn</code>.</b> Check the spelling and try again.",
+    },
+    es: {
+      h1: "@poteto shippeó 2.000 PRs en 30 días.",
+      source: 'Fuente: <a href="https://x.com/poteto/status/2087311081433964965" target="_blank" rel="noopener">el post de @poteto en X ↗</a> · <a href="https://www.youtube.com/watch?v=NjoZoUm85x0" target="_blank" rel="noopener">la charla ↗</a>',
+      label: "¿Cuántos shippeaste vos?",
+      go: "Medir",
+      hint: "Solo repos públicos. Los resultados se actualizan cada 12 horas.",
+      board: "Medidos hace poco",
+      boardkey: "<span class=\"g\">■</span> = 100 PRs mergeados. El hueco después de 20 celdas es un poteto.",
+      foot1: "Los 2.000 de @poteto salen de la charla. No escaneamos la cuenta de @poteto.",
+      foot2: "Hecho por fans. Sin relación con GitHub ni @poteto.",
+      ghlabel: "GitHub",
+      joke: '¿No entendiste el chiste? Es de Los Simpson, <a href="https://en.wikipedia.org/wiki/The_Wizard_of_Evergreen_Terrace" target="_blank" rel="noopener">“The Wizard of Evergreen Terrace” (T10E2) ↗</a>.',
+      title: "INVENTOS", you: "YO",
+      errh: "Esta cuenta no puede correr.",
+      errp: "<code>@vercel</code> es una organización. Las organizaciones no abren pull requests. Ingresá el usuario de una persona.",
+      err2: "Si el usuario no existe, la página dice: <b>No hay ningún usuario de GitHub llamado <code>@hjsimpsn</code>.</b> Revisá cómo lo escribiste y probá de nuevo.",
+    }
+  };
+  let lang = "en";
+  const fmt = (n, d = 0) => new Intl.NumberFormat(lang === "es" ? "es-AR" : "en-US", { maximumFractionDigits: d, minimumFractionDigits: d }).format(n);
+  const pct = (n, d = 1) => { const v = new Intl.NumberFormat(lang === "es" ? "es-AR" : "en-US", { maximumFractionDigits: d }).format(n); return lang === "es" ? v + " %" : v + "%"; };
+
+  function rng(seed) { let s = seed >>> 0; return () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296; }
+  function days(total, seed, spread = 1) {
+    const r = rng(seed), w = Array.from({ length: 30 }, () => r() < spread ? r() ** 2 + .08 : 0);
+    const sum = w.reduce((a, b) => a + b, 0) || 1;
+    const out = w.map(v => Math.floor(v / sum * total));
+    let rest = total - out.reduce((a, b) => a + b, 0);
+    for (let i = 0; rest > 0; i = (i + 7) % 30) if (w[i] > 0) { out[i]++; rest--; }
+    return out;
+  }
+  const DATES = Array.from({ length: 30 }, (_, i) => new Date(2026, 8, 5 + i));
+  const MON = { en: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"], es: ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"] };
+  const dlabel = d => lang === "es" ? `${d.getDate()} ${MON.es[d.getMonth()]}` : `${MON.en[d.getMonth()]} ${d.getDate()}`;
+
+  const SHAPES = { wide: [100, 20], narrow: [50, 40] };
+  function grid(kind, total, color, opts = {}) {
+    const [cols] = SHAPES[kind], p = 10, c = 8;
+    const extra = opts.extra || 0;
+    const rows = Math.ceil(total / cols), xrows = Math.ceil(extra / cols);
+    const H = (rows + (xrows ? xrows + 1 : 0)) * p - (p - c);
+    let s = `<svg class="${kind}" viewBox="0 0 ${cols * p - (p - c)} ${H}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">`;
+    for (let i = 0; i < total; i++) s += `<rect x="${(i % cols) * p}" y="${Math.floor(i / cols) * p}" width="${c}" height="${c}" fill="${color(i) || css("--c0")}"/>`;
+    for (let i = 0; i < extra; i++) s += `<rect x="${(i % cols) * p}" y="${(rows + 1 + Math.floor(i / cols)) * p}" width="${c}" height="${c}" fill="${opts.extraColor}"/>`;
+    return s + "</svg>";
+  }
+  const both = (total, color, opts) => grid("wide", total, color, opts) + grid("narrow", total, color, opts);
+
+  function heroGrid() {
+    const cv = document.getElementById("hero"), ctx = cv.getContext("2d");
+    const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+    const W = [.3, .28, .22, .12, .08];
+    const pick = () => { let x = Math.random(); for (let i = 0; i < 5; i++) { if ((x -= W[i]) < 0) return i; } return 4; };
+    let cols, cell, gap, cur, tgt, pal, last = 0;
+    function layout() {
+      const w = cv.clientWidth, dpr = devicePixelRatio || 1, narrow = w < 640;
+      cell = narrow ? 10 : 14; gap = narrow ? 3 : 4;
+      cols = Math.floor((w + gap) / (cell + gap));
+      const h = 7 * cell + 6 * gap;
+      cv.style.height = h + "px"; cv.width = w * dpr; cv.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      pal = [0, 1, 2, 3, 4].map(i => hex(css("--g" + i)));
+      tgt = Array.from({ length: cols * 7 }, pick); cur = tgt.slice();
+      paint();
+    }
+    function color(v) {
+      const i = Math.min(3, Math.floor(v)), t = v - i, a = pal[i], b = pal[i + 1];
+      return `rgb(${a.map((c, k) => Math.round(c + (b[k] - c) * t)).join(",")})`;
+    }
+    function paint() {
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      for (let x = 0; x < cols; x++) for (let y = 0; y < 7; y++) {
+        ctx.fillStyle = color(cur[x * 7 + y]);
+        ctx.beginPath(); ctx.roundRect(x * (cell + gap), y * (cell + gap), cell, cell, 2); ctx.fill();
+      }
+    }
+    function frame(now) {
+      if (cv.isConnected && !document.getElementById("v-landing").hidden) {
+        if (now - last > 90) { last = now; for (let k = 0; k < Math.ceil(cols * 7 * .03); k++) tgt[Math.floor(Math.random() * tgt.length)] = pick(); }
+        for (let i = 0; i < cur.length; i++) cur[i] += (tgt[i] - cur[i]) * .12;
+        paint();
+      }
+      requestAnimationFrame(frame);
+    }
+    layout();
+    addEventListener("resize", layout);
+    matchMedia("(prefers-color-scheme: dark)").addEventListener("change", layout);
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches && !location.search.includes("still")) requestAnimationFrame(frame);
+    heroGrid = layout;
+  }
+
+  const HORSE = [
+    "......AAAAA.........",
+    "......AAAAA.........",
+    "......AAAAA.........",
+    "......AAAAA.........",
+    "......AAAAA.........",
+    ".......RRR......H...",
+    ".......RRR.....HHH..",
+    ".......RRRR...HHHHHH",
+    ".......RRR.R.HHHH.HH",
+    ".......RRR..HHHH....",
+    ".HH....RRR.HHHH.....",
+    "HH.HHHHRRRHHHHH.....",
+    "H..HHHHHRHHHHH......",
+    "...HHHHHRHHHHHH.....",
+    "...HHHHHHHHHHHH.....",
+    "...HHH.....HHHH.....",
+    "..HH.........HHH....",
+    ".HH............HH...",
+    "HH..............HH..",
+  ];
+  let avId = 0;
+  function rider(x, y, P, riderFill, horseFill) {
+    const id = "av" + (++avId);
+    let s = `<g transform="translate(${x} ${y})" shape-rendering="crispEdges">`;
+    HORSE.forEach((row, ry) => {
+      let cx = 0;
+      while (cx < row.length) {
+        const ch = row[cx];
+        if (ch === "." || ch === "A") { cx++; continue; }
+        let end = cx; while (row[end] === ch) end++;
+        s += `<rect x="${cx * P}" y="${ry * P}" width="${(end - cx) * P}" height="${P}" fill="${ch === "H" ? horseFill : riderFill}"/>`;
+        cx = end;
+      }
+    });
+    const ax = 8.5 * P, ay = 2.4 * P, R = 3.1 * P;
+    s += `</g><g transform="translate(${x} ${y})"><clipPath id="${id}"><circle cx="${ax}" cy="${ay}" r="${R}"/></clipPath>`;
+    s += `<circle cx="${ax}" cy="${ay}" r="${R}" fill="${css("--c0")}"/>`;
+    s += `<g clip-path="url(#${id})" fill="${riderFill}"><circle cx="${ax}" cy="${ay - .7 * P}" r="${1.1 * P}"/><ellipse cx="${ax}" cy="${ay + 2.6 * P}" rx="${2.1 * P}" ry="${1.8 * P}"/></g>`;
+    s += `<circle cx="${ax}" cy="${ay}" r="${R}" fill="none" stroke="${riderFill}" stroke-width="${Math.max(1.5, P / 3)}"/>`;
+    return s + "</g>";
+  }
+
+  const P = { login: "poteto", count: 2000, series: days(2000, 7, 1) };
+  const D = { login: "dependabot", count: 960629 };
+  const U = { login: "hjsimpson", count: 37, series: days(37, 25, .35) };
+  const A = { login: "maxshipper", count: 2418, series: days(2418, 60, 1) };
+
+  const PR_TITLES = {
+    dependabot: ["chore(deps): bump lodash", "chore(deps): bump axios", "chore(deps-dev): bump jest", "chore(deps): bump react", "chore(deps): bump lodash (again)", "chore(deps): bump next", "chore(deps): bump vite", "chore(deps): bump left-pad"],
+    poteto: ["fix: flaky agent test", "feat: grokbot reviews PRs", "chore: bump deps again", "perf: cold start −40%", "refactor: delete 3k lines", "feat: parallel agent queue", "fix: typo in typo fix", "test: verify the verifier", "feat: agent writes changelog", "docs: how to ship 2000 PRs"],
+    maxshipper: ["feat: monorepo autosplit", "fix: race in merge queue", "chore: rename everything", "perf: faster CI cache", "feat: dark mode (v7)", "refactor: kill the singleton", "fix: off-by-one, again", "feat: ship it button", "test: snapshot all things", "docs: why it works"],
+    hjsimpson: ["feat: donut detector", "fix: snooze reactor alarm", "chore: nap", "feat: add D'OH error code", "revert: everything", "fix: beer.json typo", "docs: why you little…"],
+  };
+  function card(user, ahead, l, ref = P, compact = false) {
+    const prev = lang; lang = l;
+    const es = l === "es", t = T[l], share = user.count / ref.count * 100;
+    const ink = css("--chalk"), muted = css("--muted"), you = css("--you"), bg = css("--ground"), c0 = css("--c0");
+    const Px = 6, hw = 120, hh = HORSE.length * Px, ax = 60, bx = 860, hx0 = 40, hx1 = 1000;
+    const step = (bx - ax) / 29;
+    const merge = (x, y, c) => `<g fill="none" stroke="${c}" stroke-width="2.5"><circle cx="${x}" cy="${y - 4}" r="4"/><circle cx="${x}" cy="${y - 26}" r="4"/><circle cx="${x + 14}" cy="${y - 16}" r="4"/><path d="M${x} ${y - 8}V${y - 22}M${x + 14} ${y - 20}C${x + 14} ${y - 26} ${x + 8} ${y - 26} ${x + 4} ${y - 26}"/></g>`;
+    const plaque = (x, y, label, c) => { const fs = Math.min(32, 150 / (label.length * .5)); return `<rect x="${x}" y="${y}" width="170" height="50" fill="${c0}" stroke="${c}" stroke-width="2"/><text x="${x + 85}" y="${y + 25 + fs * .36}" text-anchor="middle" fill="${c}" font-family="Big Shoulders Display, sans-serif" font-weight="900" font-size="${fs}" letter-spacing="${fs * .08}">${label}</text>`; };
+    const lane = (p, y0, isYou, label) => {
+      const c = isYou ? you : ink, ay = y0 + 222, AX = 60, BX = 1010, gapX = compact ? 30 : 8.5, m = compact ? 2.4 : 1;
+      const max = Math.max(user.count, ref.count);
+      const xAt = v => AX + v / max * (BX - AX);
+      const unit = max / Math.floor((BX - AX) / gapX);
+      const endX = xAt(p.count);
+      let lastX = AX - 20;
+      let s = `<line x1="${AX}" y1="${ay}" x2="${BX}" y2="${ay}" stroke="${ink}" stroke-width="2"/>`;
+      const stepV = [100, 250, 500, 1000, 2500, 5000, 10000, 25000, 50000, 100000, 250000].find(v => max / v <= 6);
+      for (let v = 0; v <= max + 1; v += stepV / 5) s += `<line x1="${xAt(v)}" y1="${ay - 3}" x2="${xAt(v)}" y2="${ay + 3}" stroke="${ink}" stroke-width="1"/>`;
+      const ticks = [];
+      for (let v = 0; v < max - stepV * .4; v += stepV) ticks.push(v);
+      ticks.push(max);
+      ticks.forEach((v, i) => { s += `<line x1="${xAt(v)}" y1="${ay - 6}" x2="${xAt(v)}" y2="${ay + 6}" stroke="${ink}" stroke-width="2"/><text x="${xAt(v)}" y="${ay + 26}" text-anchor="${i === 0 ? "start" : i === ticks.length - 1 ? "end" : "middle"}" fill="${muted}" font-family="JetBrains Mono, monospace" font-size="14">${fmt(v)}</text>`; });
+      const titles = PR_TITLES[p.login] || PR_TITLES.hjsimpson;
+      const n = p.count ? Math.max(1, Math.round(p.count / unit)) : 0;
+      for (let k = 0; k < n; k++) {
+        const x = AX + 4 + k * gapX;
+        if (k > 0 && x > endX) break;
+        lastX = x;
+        const title = titles[k % titles.length];
+        s += `<g fill="none" stroke="${c}" stroke-width="${1.5 * m}"><circle cx="${x}" cy="${ay - 10 * m}" r="${2.2 * m}"/><circle cx="${x}" cy="${ay - 20 * m}" r="${2.2 * m}"/><path d="M${x} ${ay - 12 * m}V${ay - 18 * m}"/></g>`;
+        s += `<text transform="translate(${x + 2.5 * m} ${ay - 26 * m}) rotate(-90)" fill="${ink}" font-family="JetBrains Mono, monospace" font-size="${7 * m * .8}">${compact && title.length > 15 ? title.slice(0, 14) + "…" : title}</text>`;
+      }
+      const hx = Math.max(endX, lastX + 10) + 14, px = Math.max(hx - 10, lastX + 14);
+      return s + rider(hx, y0 + 34, Px, c, ink) + plaque(px, y0 + 34 + hh + 4, label, c);
+    };
+    const max = Math.max(user.count, ref.count);
+    const big = ahead ? pct(share, 0) : pct(share, share < 1 ? 2 : 1);
+    const s = `<svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Share card">
+      <rect width="1200" height="630" fill="${bg}"/>
+      <text x="600" y="64" text-anchor="middle" fill="${ink}" font-family="Big Shoulders Display, sans-serif" font-weight="900" font-size="60" letter-spacing="8">PRs</text>
+      <text x="40" y="64" fill="${you}" font-family="Big Shoulders Display, sans-serif" font-weight="900" font-size="44">${big}<tspan fill="${ink}" font-size="26" letter-spacing="2" dx="10">${(es ? "DE UN " : "OF A ") + ref.login.toUpperCase()}</tspan></text>
+      <text x="1160" y="60" text-anchor="end" fill="${muted}" font-family="JetBrains Mono, monospace" font-size="16">@${user.login} · ${fmt(user.count)} PRs · ${es ? "30 días" : "30 days"}</text>
+      <line x1="0" y1="84" x2="1200" y2="84" stroke="${ink}" stroke-width="2"/>
+      <line x1="0" y1="346" x2="1200" y2="346" stroke="${ink}" stroke-width="2"/>
+      ${lane(ref, 84, false, ref.login.toUpperCase())}
+      ${lane(user, 346, true, user.login.toUpperCase())}
+    </svg>`;
+    lang = prev;
+    return s;
+  }
+
+  const LADDER = [1, 2, 5, 10, 25, 50, 100, 250];
+  function perDay(series) {
+    const peak = Math.max(...series), unit = LADDER.find(u => peak / u <= 10), rows = Math.max(7, Math.ceil(peak / unit)), p = 20.8, c = 16.6;
+    let s = `<svg viewBox="0 0 ${30 * p - (p - c)} ${rows * p + 26}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Merged PRs per day">`;
+    series.forEach((n, i) => {
+      for (let r = 0; r < rows; r++) s += `<rect x="${i * p}" y="${(rows - 1 - r) * p}" width="${c}" height="${c}" fill="${r < Math.ceil(n / unit) ? css("--you") : css("--c0")}"/>`;
+    });
+    [0, 7, 14, 21, 28].forEach(i => {
+      s += `<text x="${i * p}" y="${rows * p + 18}" fill="${css("--muted")}" font-family="JetBrains Mono, monospace" font-size="12">${dlabel(DATES[i])}</text>`;
+    });
+    return { svg: s + "</svg>", unit };
+  }
+
+  function resultView(user, ahead) {
+    const es = lang === "es", you = css("--you");
+    const share = user.count / 2000 * 100;
+    const head = ahead
+      ? (es ? `Mergeaste ${fmt(user.count)} PRs. Ahora el poteto sos vos.` : `You merged ${fmt(user.count)} PRs. You are the poteto now.`)
+      : (es ? `Mergeaste ${fmt(user.count)} PRs. Eso es el ${pct(share)} de @poteto.` : `You merged ${fmt(user.count)} PRs. That is ${pct(share)} of @poteto.`);
+    const rank = ahead ? 3 : 9841, total = 14212;
+    const repo = ahead ? ["maxshipper/monorepo", 1904] : ["springfield/plant-monitor", 21];
+    const lines = ahead ? [412907, 198330] : [3214, 1087];
+    const sim = (ahead ? [["shipit-sam", 2390], ["tanbranch", 2281], ["deploy-dana", 2602], ["mergequeen", 2215], ["rebase-rui", 2540]] : [["moe-szyslak", 38], ["lenny-l", 36], ["carl-c", 35], ["apu-n", 40], ["barney-g", 33]])
+      .concat([[user.login, user.count, true]]).sort((a, b) => b[1] - a[1]);
+    const punchWho = ahead ? user : P;
+    const pd = perDay(user.series);
+    const L = es
+      ? { merged: "PRs mergeados", ofp: "de un poteto", rank: `puesto, de ${fmt(total)} medidos`, facts: `Repo con más PRs: <b>${repo[0]}</b> (${fmt(repo[1])}). Líneas: <b>+${fmt(lines[0])} / −${fmt(lines[1])}</b>.`, cap: "Un poteto: 2.000 celdas, una por PR. Las verdes son tuyas.", perday: `Tus PRs mergeados por día · ■ = ${pd.unit} PR${pd.unit > 1 ? "s" : ""}`, sim: "Cerca de tu número", share: "Así se ve tu link cuando lo compartís", post: "Compartir en X", copy: "Copiar link", upd: "Actualizado hace 7 h.", k: ahead ? "Vas adelante de @poteto. Igual vas atrás de un bot." : "Tranqui, no sos el único que va atrás.", legend: `@dependabot mergeó ${fmt(D.count)} PRs en los mismos 30 días. ${ahead ? "Vos sos" : "@poteto es"} el ${pct(punchWho.count / D.count * 100, 2)} de un dependabot.`, head2: `github.com/${user.login} · 5 sep – 4 oct` }
+      : { merged: "merged PRs", ofp: "of a poteto", rank: `rank, of ${fmt(total)} measured`, facts: `Top repo: <b>${repo[0]}</b> (${fmt(repo[1])} PRs). Lines: <b>+${fmt(lines[0])} / −${fmt(lines[1])}</b>.`, cap: "One poteto: 2,000 cells, one per PR. The green ones are yours.", perday: `Your merged PRs per day · ■ = ${pd.unit} PR${pd.unit > 1 ? "s" : ""}`, sim: "Close to your count", share: "This is what your link shows when you share it", post: "Post on X", copy: "Copy link", upd: "Updated 7h ago.", k: ahead ? "You're ahead of @poteto. You're still behind a bot." : "Don't worry, you're not the only one feeling behind.", legend: `@dependabot merged ${fmt(D.count)} PRs in the same 30 days. ${ahead ? "You are" : "@poteto is"} ${pct(punchWho.count / D.count * 100, 2)} of a dependabot.`, head2: `github.com/${user.login} · Sep 5 – Oct 4` };
+    const g = both(2000, i => i < user.count ? you : null, ahead ? { extra: user.count - 2000, extraColor: you } : {});
+    return `
+      <div class="result-head">
+        <span class="meta">${L.head2}</span>
+        <h1>${head}</h1>
+      </div>
+      <div class="grid">${g}</div>
+      <div class="grid-cap" style="padding-top:12px"><span class="meta">${L.cap}</span></div>
+      <div class="share">
+        <span class="label">${L.share}</span>
+        <div class="og-frame"><div class="cw">${card(user, ahead, lang)}</div><div class="cn">${card(user, ahead, lang, P, true)}</div></div>
+      </div>
+      <div class="actions">
+        <a class="btn solid" href="#${ahead ? "ahead" : "behind"}">${L.post}</a>
+        <button class="btn" type="button">${L.copy}</button>
+        <span class="meta">${L.upd}</span>
+      </div>
+      <dl class="stats">
+        <div><dt>${fmt(user.count)}</dt><dd class="label">${L.merged}</dd></div>
+        <div><dt class="y">${ahead ? pct(share, 0) : pct(share)}</dt><dd class="label">${L.ofp}</dd></div>
+        <div><dt>#${fmt(rank)}</dt><dd class="label">${L.rank}</dd></div>
+      </dl>
+      <p class="facts-line">${L.facts}</p>
+      <div class="split">
+        <div class="col"><span class="label">${L.perday}</span><div class="pd">${pd.svg}</div></div>
+        <div class="col"><span class="label">${L.sim}</span><ol class="sim">${sim.map(([s, n, me]) => `<li class="${me ? "me" : ""}"><b>@${s}</b><span>${fmt(n)}</span></li>`).join("")}</ol></div>
+      </div>
+      ${user.count > D.count ? "" : `<div class="punch">
+        <h2>${L.k}</h2>
+        <div class="og-frame"><div class="cw">${card(punchWho, false, lang, D)}</div><div class="cn">${card(punchWho, false, lang, D, true)}</div></div>
+        <p>${L.legend}</p>
+        <p class="meta joke">${T[lang].joke}</p>
+      </div>`}`;
+  }
+
+  function og(user, ahead, l) {
+    return `<div class="og"><span class="meta">${l.toUpperCase()} · 1200×630 · ${ahead ? "ahead" : "behind"}</span><div class="og-frame">${card(user, ahead, l)}</div></div>`;
+  }
+
+  function board() {
+    const rows = [["maxshipper", 2418], ["tanbranch", 611], ["mergequeen", 402], ["hjsimpson", 37], ["lenny-l", 22], ["carl-c", 9]];
+    const ink = css("--g3"), c0 = css("--g0");
+    document.getElementById("board").innerHTML = rows.map(([l, c]) => {
+      const n = Math.max(1, Math.round(c / 100));
+      let s = `<svg viewBox="0 0 268 8" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">`;
+      for (let i = 0; i < 26; i++) { const k = i < 20 ? i : i - 1; if (i === 20) continue; s += `<rect x="${i * 10 + (i > 20 ? 0 : 0)}" y="0" width="8" height="8" fill="${k < n ? ink : c0}"/>`; }
+      return `<li><b>@${l}</b>${s}</svg><span class="num">${fmt(c)}</span></li>`;
+    }).join("");
+  }
+
+  function i18n() {
+    document.documentElement.lang = lang;
+    document.querySelectorAll("[data-t]").forEach(el => {
+      const v = T[lang][el.dataset.t];
+      if (el.hasAttribute("data-html")) el.innerHTML = v; else el.textContent = v;
+    });
+    document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === lang));
+    board();
+    document.getElementById("v-behind").innerHTML = resultView(U, false);
+    document.getElementById("v-ahead").innerHTML = resultView(A, true);
+    document.getElementById("og-list").innerHTML = og(U, false, "en") + og(U, false, "es") + [["lenny-l", 500, 3], ["carl-c", 1000, 4], ["frink", 1800, 5]].map(([login, count, seed]) => og({ login, count, series: days(count, seed, .8) }, false, "en")).join("") + og(A, true, "en") + og(A, true, "es");
+  }
+
+  function route() {
+    const id = (location.hash || "#landing").slice(1);
+    const v = ["landing", "behind", "ahead", "error", "og"].includes(id) ? id : "landing";
+    document.querySelectorAll(".view").forEach(s => s.hidden = s.id !== "v-" + v);
+    document.querySelectorAll(".mockbar a").forEach(a => a.setAttribute("aria-current", a.getAttribute("href") === "#" + v));
+    if (v === "landing") heroGrid();
+    window.scrollTo(0, 0);
+  }
+
+  function measure(e) {
+    e.preventDefault();
+    location.hash = "behind";
+  }
+
+  document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => { lang = b.dataset.lang; i18n(); route(); }));
+  document.getElementById("measure").addEventListener("submit", measure);
+  document.querySelector("#v-error form").addEventListener("submit", e => e.preventDefault());
+  addEventListener("hashchange", route);
+
+  i18n(); route();
+})();
+</script>
