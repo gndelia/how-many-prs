@@ -60,7 +60,7 @@ function ErrorView({ lang, row }: { lang: Lang; row: UserRow }) {
       <span className="meta">@{row.displayLogin}</span>
       <h1>{org ? t.orgHead : t.missingHead}</h1>
       <p>{org ? t.orgBody(row.displayLogin) : t.missingBody(row.displayLogin)}</p>
-      <MeasureForm lang={lang} label={t.askLabel} button={t.measure} measuring={t.measuring} hint={t.hint} invalid={t.invalidLogin} />
+      <MeasureForm lang={lang} label={t.askLabel} button={t.measure} measuring={t.measuring} hint={t.hint} invalid={t.invalidLogin} placeholder={t.loginPlaceholder} />
     </div>
   );
 }
@@ -73,7 +73,7 @@ function PotetoView({ lang, row }: { lang: Lang; row: UserRow }) {
       <h1>{t.potetoHead}</h1>
       <p>{t.potetoBody(format(lang).n(row.mergedCount))}</p>
       <XEmbed url={TALK_POST} fallback={t.potetoEmbed} />
-      <MeasureForm lang={lang} label={t.askLabel} button={t.measure} measuring={t.measuring} hint={t.hint} invalid={t.invalidLogin} />
+      <MeasureForm lang={lang} label={t.askLabel} button={t.measure} measuring={t.measuring} hint={t.hint} invalid={t.invalidLogin} placeholder={t.loginPlaceholder} />
     </div>
   );
 }

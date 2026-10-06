@@ -30,7 +30,7 @@ export default async function Landing({ params }: PageProps<"/[lang]">) {
         <TalkAccordion url={TALK_POST} summary={t.watchTalk} fallback={t.potetoEmbed} />
         <ContributionHero />
       </div>
-      <MeasureForm lang={lang} label={t.askLabel} button={t.measure} measuring={t.measuring} hint={t.hint} invalid={t.invalidLogin} />
+      <MeasureForm lang={lang} label={t.askLabel} button={t.measure} measuring={t.measuring} hint={t.hint} invalid={t.invalidLogin} placeholder={t.loginPlaceholder} />
       {rows.length > 0 && (
         <div className="board-wrap">
           <h2>{t.recent}</h2>
