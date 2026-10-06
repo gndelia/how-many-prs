@@ -1,19 +1,16 @@
 import { format, type Lang } from "@/lib/i18n";
 
-const CELL_PRS = 100;
+const CELL_PRS = 10;
 const CELLS = 25;
-const GAP_AT = 20;
 
 function Strip({ count }: { count: number }) {
   const filled = count ? Math.max(1, Math.round(count / CELL_PRS)) : 0;
   const rects = [];
-  for (let i = 0, slot = 0; slot < CELLS; i++) {
-    if (i === GAP_AT) continue;
-    rects.push(<rect key={i} x={i * 10} y={0} width={8} height={8} className={slot < filled ? "cell-on" : "cell-off"} />);
-    slot++;
+  for (let i = 0; i < CELLS; i++) {
+    rects.push(<rect key={i} x={i * 10} y={0} width={8} height={8} className={i < filled ? "cell-on" : "cell-off"} />);
   }
   return (
-    <svg viewBox="0 0 268 8" aria-hidden="true">
+    <svg viewBox="0 0 248 8" aria-hidden="true">
       {rects}
     </svg>
   );
