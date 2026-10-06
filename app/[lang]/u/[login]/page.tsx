@@ -39,13 +39,16 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const { n, pct } = format(lang);
   const path = `/u/${row.login}`;
   const ogImage = `/api/og/${lang}/${row.login}?v=${row.fetchedAt.getTime()}`;
-  const title = row.status === "ok" ? `@${row.displayLogin}: ${n(row.mergedCount)} PRs · ${pct((row.mergedCount / POTETO_COUNT) * 100)} · ${t.siteName}` : t.siteName;
+  const ok = row.status === "ok";
+  const title = ok ? `@${row.displayLogin}: ${n(row.mergedCount)} PRs · ${pct((row.mergedCount / POTETO_COUNT) * 100)} · ${t.siteName}` : t.siteName;
+  const description = ok ? `${t.hero} ${t.shipped(n(row.mergedCount))}` : undefined;
   return {
     title,
+    description,
     alternates: { canonical: localePath(lang, path), languages: { en: path, es: localePath("es", path), "x-default": path } },
-    robots: row.status === "ok" ? undefined : { index: false },
-    openGraph: row.status === "ok" ? { title, images: [{ url: ogImage, width: 1200, height: 630 }] } : undefined,
-    twitter: row.status === "ok" ? { card: "summary_large_image", title, images: [ogImage] } : undefined,
+    robots: ok ? undefined : { index: false },
+    openGraph: ok ? { title, description, images: [{ url: `${ogImage}&style=solo`, width: 1200, height: 630 }] } : undefined,
+    twitter: ok ? { card: "summary_large_image", title, description, images: [ogImage] } : undefined,
   };
 }
 

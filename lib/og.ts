@@ -1,7 +1,7 @@
 import "server-only";
 import { join } from "node:path";
 import { Resvg } from "@resvg/resvg-js";
-import { LIGHT, renderCard, type CardInput, type Racer } from "./card";
+import { LIGHT, renderCard, renderShareCard, type CardInput, type Locale, type Racer } from "./card";
 
 const FONTS = ["BigShouldersDisplay-800", "BigShouldersDisplay-900", "JetBrainsMono-400", "JetBrainsMono-700"].map((f) =>
   join(process.cwd(), "assets/fonts", `${f}.ttf`),
@@ -21,8 +21,13 @@ async function dataUri(url: string | undefined) {
 
 const withAvatar = async (r: Racer): Promise<Racer> => ({ ...r, avatar: await dataUri(r.avatar) });
 
+const png = (svg: string) => new Resvg(svg, { font: { fontFiles: FONTS, loadSystemFonts: false, defaultFontFamily: "JetBrains Mono" } }).render().asPng();
+
 export async function renderCardPng(input: Omit<CardInput, "theme">): Promise<Buffer> {
   const [reference, subject] = await Promise.all([withAvatar(input.reference), withAvatar(input.subject)]);
-  const svg = renderCard({ ...input, reference, subject, theme: LIGHT, compact: true });
-  return new Resvg(svg, { font: { fontFiles: FONTS, loadSystemFonts: false, defaultFontFamily: "JetBrains Mono" } }).render().asPng();
+  return png(renderCard({ ...input, reference, subject, theme: LIGHT, compact: true }));
+}
+
+export async function renderSharePng(racer: Racer, locale: Locale): Promise<Buffer> {
+  return png(renderShareCard({ racer: await withAvatar(racer), locale }));
 }

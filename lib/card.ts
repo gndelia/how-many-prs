@@ -169,6 +169,20 @@ ${lane(subject, 346, true)}
 </svg>`);
 }
 
+export function renderShareCard({ racer, locale, theme = LIGHT }: { racer: Racer; locale: Locale; theme?: Theme }): string {
+  const { fmt } = formatters(locale);
+  const P = 14;
+  const count = fmt(racer.count);
+  const countSize = Math.min(260, 560 / (count.length * 0.52));
+  return `<svg viewBox="0 0 1200 630" width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="630" fill="${theme.ground}"/>
+${rider("share-av", 150, 190, P, theme.you, theme.ink, theme, racer.avatar)}
+<text x="580" y="350" fill="${theme.you}" font-family="${DISPLAY}" font-weight="900" font-size="${countSize}">${count}</text>
+<text x="584" y="430" fill="${theme.ink}" font-family="${DISPLAY}" font-weight="800" font-size="64" letter-spacing="4">${locale === "es" ? "PRs EN 30 DÍAS" : "PRs IN 30 DAYS"}</text>
+<text x="586" y="500" fill="${theme.muted}" font-family="${MONO}" font-size="34">@${esc(racer.login)}</text>
+</svg>`;
+}
+
 function varsToStyle(svg: string) {
   return svg.replace(/<[^>]+>/g, (tag) => {
     const decls: string[] = [];
