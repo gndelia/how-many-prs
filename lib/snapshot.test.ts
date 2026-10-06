@@ -6,7 +6,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { createDb, type Db } from "./db/client";
 import type { Gql } from "./github";
 import { memoryLock } from "./lock";
-import { closest, dependabotCount, ensureDetails, FetchNotAllowedError, getSnapshot, rank, recent, refresh, type Deps } from "./snapshot";
+import { botCount, closest, dependabotCount, ensureDetails, FetchNotAllowedError, getSnapshot, rank, recent, refresh, type Deps } from "./snapshot";
 
 const T0 = new Date("2026-10-05T12:00:00Z");
 const HOUR = 3_600_000;
@@ -122,6 +122,31 @@ describe("refresh", () => {
 });
 
 describe("ensureDetails", () => {
+  it("waits for another request that holds the details lock", async () => {
+    const gh = github({ hjsimpson: user("hjsimpson", 37) });
+    const lock = memoryLock(() => now.getTime());
+    await getSnapshot(deps(gh.gql), "hjsimpson");
+    await lock.acquire("details:hjsimpson", 60_000);
+    let polls = 0;
+    const d = deps(gh.gql, {
+      lock,
+      sleep: async () => {
+        if (++polls === 2) await ensureDetails(deps(gh.gql), "hjsimpson");
+      },
+    });
+    expect(await ensureDetails(d, "hjsimpson")).toMatchObject({ additions: 3 });
+    expect(gh.calls).toEqual(["fast:hjsimpson", "page"]);
+  });
+
+  it("reports busy when the details lock holder does not finish", async () => {
+    const gh = github({ hjsimpson: user("hjsimpson", 37) });
+    const lock = memoryLock(() => now.getTime());
+    await getSnapshot(deps(gh.gql), "hjsimpson");
+    await lock.acquire("details:hjsimpson", 60_000);
+    expect(await ensureDetails(deps(gh.gql, { lock }), "hjsimpson")).toBe("busy");
+    expect(gh.calls).toEqual(["fast:hjsimpson"]);
+  });
+
   it("fetches details once per snapshot", async () => {
     const gh = github({ hjsimpson: user("hjsimpson", 37) });
     const d = deps(gh.gql);
@@ -161,9 +186,32 @@ describe("leaderboard queries", () => {
     expect((await closest(db, "hjsimpson", 37, 3)).map((r) => r.login)).toEqual(["lennyl", "carlc", "zero"]);
   });
 
+  it("hides poteto from recent lookups, rank, and closest users", async () => {
+    const gh = github({ poteto: user("poteto", 20), hjsimpson: user("hjsimpson", 37), carlc: user("carlc", 9) });
+    for (const login of ["carlc", "hjsimpson", "poteto"]) {
+      await getSnapshot(deps(gh.gql), login);
+      now = new Date(now.getTime() + 60_000);
+    }
+    expect((await recent(db)).map((r) => r.login)).toEqual(["hjsimpson", "carlc"]);
+    expect(await rank(db, 15)).toEqual({ rank: 2, total: 2 });
+    expect((await closest(db, "carlc", 9)).map((r) => r.login)).toEqual(["hjsimpson"]);
+  });
+
   it("lists the most recent lookups first, including users with 0 PRs", async () => {
     await seed();
     expect((await recent(db, 3)).map((r) => r.login)).toEqual(["zero", "carlc", "lennyl"]);
+  });
+});
+
+describe("botCount", () => {
+  it("returns the cached value when GitHub fails", async () => {
+    const gh = github({});
+    await dependabotCount(deps(gh.gql));
+    now = new Date(T0.getTime() + 13 * 3_600_000);
+    const failing = (async () => {
+      throw new Error("timeout");
+    }) as unknown as Gql;
+    expect(await botCount(deps(failing), "dependabot")).toBe(960629);
   });
 });
 

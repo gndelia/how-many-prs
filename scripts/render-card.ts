@@ -10,8 +10,8 @@ async function avatar(login: string) {
   return `data:${res.headers.get("content-type") ?? "image/png"};base64,${buf.toString("base64")}`;
 }
 
-const poteto: Racer = { login: "poteto", count: 2000, titles: ["fix: flaky agent test", "feat: grokbot reviews PRs", "perf: cold start −40%", "refactor: delete 3k lines"] };
-const dependabot: Racer = { login: "dependabot", count: 960629, titles: ["chore(deps): bump lodash", "chore(deps): bump axios"] };
+const poteto: Racer = { login: "poteto", count: 2000, titles: ["fix: flaky agent test", "feat: grokbot reviews PRs", "perf: cold start −40%", "refactor: delete 3k lines"], riderColor: "accent" };
+const dependabot: Racer = { login: "dependabot", count: 960629, titles: ["chore(deps): bump lodash", "chore(deps): bump axios"], riderColor: "accent" };
 const user: Racer = { login: "gndelia", count: 37, titles: ["feat: donut detector", "fix: snooze reactor alarm"] };
 const ahead: Racer = { login: "maxshipper", count: 2418, titles: ["feat: monorepo autosplit", "fix: race in merge queue"] };
 

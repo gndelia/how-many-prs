@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  serverExternalPackages: ["@resvg/resvg-js"],
+  outputFileTracingIncludes: {
+    "/api/og/[lang]/[login]": ["./assets/fonts/**/*"],
+  },
 };
 
 export default nextConfig;
