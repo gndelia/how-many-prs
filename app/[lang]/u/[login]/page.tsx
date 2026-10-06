@@ -116,7 +116,6 @@ export default async function ResultPage({ params }: { params: Promise<Params> }
       </div>
 
       <div className="share">
-        <span className="label">{t.shareLabel}</span>
         <HorseCard id="share" reference={POTETO} subject={me} lang={lang} />
       </div>
       <ShareActions
