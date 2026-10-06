@@ -23,6 +23,6 @@ const withAvatar = async (r: Racer): Promise<Racer> => ({ ...r, avatar: await da
 
 export async function renderCardPng(input: Omit<CardInput, "theme">): Promise<Buffer> {
   const [reference, subject] = await Promise.all([withAvatar(input.reference), withAvatar(input.subject)]);
-  const svg = renderCard({ ...input, reference, subject, theme: LIGHT });
+  const svg = renderCard({ ...input, reference, subject, theme: LIGHT, compact: true });
   return new Resvg(svg, { font: { fontFiles: FONTS, loadSystemFonts: false, defaultFontFamily: "JetBrains Mono" } }).render().asPng();
 }

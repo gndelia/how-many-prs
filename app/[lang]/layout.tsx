@@ -14,6 +14,12 @@ export function generateStaticParams() {
   return LOCALES.map((lang) => ({ lang }));
 }
 
+function siteUrl() {
+  if (process.env.SITE_URL) return process.env.SITE_URL;
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  return "http://localhost:3000";
+}
+
 export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Promise<Metadata> {
   const { lang } = await params;
   if (!hasLang(lang)) return {};
@@ -21,7 +27,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
   return {
     title: t.siteName,
     description: t.hero,
-    metadataBase: new URL(process.env.SITE_URL ?? "http://localhost:3000"),
+    metadataBase: new URL(siteUrl()),
   };
 }
 
