@@ -26,8 +26,10 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
   const t = dict(lang);
   return {
     title: t.siteName,
-    description: t.hero,
+    description: `${t.hero} ${t.askLabel}`,
     metadataBase: new URL(siteUrl()),
+    openGraph: { images: [{ url: "/og.png", width: 1200, height: 630 }] },
+    twitter: { card: "summary_large_image" },
   };
 }
 
