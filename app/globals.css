@@ -51,7 +51,8 @@ h2 { margin: 0; font: 800 clamp(30px, 5vw, 48px)/.95 var(--display); text-transf
 .hero { display: grid; gap: 32px; padding-top: 32px; }
 #hero { display: block; width: 100%; }
 .measure { display: grid; gap: 14px; padding-top: var(--gap); }
-.measure label { font: 800 26px/1 var(--display); text-transform: uppercase; letter-spacing: .02em; }
+.measure label { font: 800 36px/1 var(--display); text-transform: uppercase; letter-spacing: .02em; }
+.measure .meta { font-size: 15px; color: var(--text); }
 .field { display: flex; flex-wrap: wrap; border: 1px solid var(--chalk); background: var(--ground); }
 .field .prefix { display: flex; align-items: center; font: 400 18px/20px var(--mono); color: var(--muted); padding: 0 0 0 16px; }
 .field input { flex: 1 1 140px; min-width: 0; height: 60px; font: 500 18px/20px var(--mono); color: var(--chalk); background: transparent; border: 0; padding: 0 16px 0 2px; outline: none; }
