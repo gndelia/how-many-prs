@@ -2,8 +2,10 @@ import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { memoryLock, redisLock, type Lock } from "./lock";
 
-const redis = process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN ? Redis.fromEnv() : null;
-if (!redis && process.env.VERCEL) throw new Error("UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN must be set on Vercel");
+const url = process.env.UPSTASH_KV_REST_API_URL;
+const token = process.env.UPSTASH_KV_REST_API_TOKEN;
+const redis = url && token ? new Redis({ url, token }) : null;
+if (!redis && process.env.VERCEL) throw new Error("UPSTASH_KV_REST_API_URL and UPSTASH_KV_REST_API_TOKEN must be set on Vercel");
 
 const limiter = redis ? new Ratelimit({ redis, limiter: Ratelimit.slidingWindow(20, "1 m"), prefix: "lookup" }) : null;
 
