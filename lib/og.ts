@@ -1,7 +1,7 @@
 import "server-only";
 import { join } from "node:path";
 import { Resvg } from "@resvg/resvg-js";
-import { LIGHT, renderCard, renderShareCard, type CardInput, type Locale, type Racer } from "./card";
+import { LIGHT, renderCard, renderHomeCard, renderShareCard, type CardInput, type Locale, type Racer } from "./card";
 
 const FONTS = ["BigShouldersDisplay-800", "BigShouldersDisplay-900", "JetBrainsMono-400", "JetBrainsMono-700"].map((f) =>
   join(process.cwd(), "assets/fonts", `${f}.ttf`),
@@ -30,4 +30,8 @@ export async function renderCardPng(input: Omit<CardInput, "theme">): Promise<Bu
 
 export async function renderSharePng(racer: Racer, locale: Locale): Promise<Buffer> {
   return png(renderShareCard({ racer: await withAvatar(racer), locale }));
+}
+
+export function renderHomePng(locale: Locale): Buffer {
+  return png(renderHomeCard({ locale }));
 }

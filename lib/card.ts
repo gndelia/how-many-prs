@@ -183,6 +183,18 @@ ${rider("share-av", 150, 190, P, theme.you, theme.ink, theme, racer.avatar)}
 </svg>`;
 }
 
+export function renderHomeCard({ locale, theme = LIGHT }: { locale: Locale; theme?: Theme }): string {
+  const es = locale === "es";
+  return `<svg viewBox="0 0 1200 630" width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="630" fill="${theme.ground}"/>
+<g transform="translate(130 515) scale(14)" fill="none" stroke="${theme.merged}" stroke-width="2" stroke-linecap="round"><circle cx="0" cy="-8" r="2"/><circle cx="0" cy="-22" r="2"/><circle cx="4.5" cy="-13" r="2"/><path d="M0 -10V-20M0 -20C0 -16 4.5 -18 4.5 -15"/></g>
+<text x="400" y="175" fill="${theme.ink}" font-family="${DISPLAY}" font-weight="800" font-size="72" letter-spacing="2">${es ? "@poteto shippeó" : "@poteto shipped"}</text>
+<text x="396" y="330" fill="${theme.merged}" font-family="${DISPLAY}" font-weight="900" font-size="170">${es ? "2.000 PRs" : "2,000 PRs"}</text>
+<text x="400" y="435" fill="${theme.ink}" font-family="${DISPLAY}" font-weight="800" font-size="72" letter-spacing="2">${es ? "en 30 días." : "in 30 days."}</text>
+<text x="400" y="535" fill="${theme.you}" font-family="${DISPLAY}" font-weight="900" font-size="64" letter-spacing="2">${es ? "¿Cuántos shippeaste vos?" : "How many did you ship?"}</text>
+</svg>`;
+}
+
 function varsToStyle(svg: string) {
   return svg.replace(/<[^>]+>/g, (tag) => {
     const decls: string[] = [];
